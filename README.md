@@ -10,7 +10,6 @@ By extension:
 livestreamer with the requested script.
 
 ###README
-###======
 ####Usage
 Just run the script, and it'll spit out the info.
 
@@ -18,8 +17,6 @@ Just run the script, and it'll spit out the info.
 But if you want to see the channels that _you_ follow, modify the "user" variable to your Twitch username
 
 ###CHANGELOG
-###=========
-
 ####Current Version
 Date: 2015-02-13
 Changes:
