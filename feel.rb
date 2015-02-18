@@ -29,12 +29,10 @@ def main()
 end
 
 def getStreams(user, offset, streams)
-	#Compose the URL
-	url = "#{Twitch_url}/users/#{URI.encode(user)}/follows/channels"
-
-	#Fetch it with Typhoeus
+	#Using Typhoeus, construct a GET request with appropriate headers
+	#to appropriate API, and then get the body of the returned values
 	data = Typhoeus::Request.new(
-		"#{url}",
+		"#{Twitch_url}/users/#{URI.encode(user)}/follows/channels",
 		headers: Twitch_headers, 
 		params: {"offset"=>"#{offset}", "limit"=>"100"}
 	).run.body
@@ -48,7 +46,7 @@ def getStreams(user, offset, streams)
 		raise "Nope... something didn't work..."
 	end
 
-	#Filter out the streamers' channel names
+	#Filter out the streamers' channel names, add it to the streams array
 	result["follows"].each { |key|
 		streams.push("#{key["channel"]["name"]}")}
 
@@ -64,12 +62,9 @@ def getStreams(user, offset, streams)
 end
 
 def getLive(stream)
-	#Compose the URL
-	url = "#{Twitch_url}/streams/#{stream}"
-	
-	#Fetch it with Typhoeus
+	#Using Typhoeus similarly to getStreams implementation
 	data = Typhoeus::Request.new(
-		"#{url}",
+		"#{Twitch_url}/streams/#{stream}",
 		headers: Twitch_headers,
 	).run.body
 
