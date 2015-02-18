@@ -13,21 +13,24 @@ By extension:
 ####Usage
 Just run the script, and it'll spit out the info.
 
-####Modification
-But if you want to see the channels that _you_ follow, modify the "user" variable to your Twitch username
+But if you want to see the channels that _you_ follow, modify the "Twitch\_username" variable to your Twitch username
 
 ####To-Do
-* [ ] Complete script
+* [X] Complete script
+* [ ] Leverage Typhoeus concurrent API calls and cut down wait time 
 * [ ] Add wrapper for [livestreamer](https://github.com/chrippa/livestreamer)
 * [ ] Add wrapper for use in [bar](https://github.com/LemonBoy/bar)
 
 ###CHANGELOG
 ####Current Version
+* Date: 2015-02-18
+* Changes:
+	* + Script is functional
+
+#####Older Versions
+
 * Date: 2015-02-13
 * Changes:
 	* + Uploaded script
 	* + Created/Populated README file
 	* + Created/Populated LICENSE file
-
-#####Older Versions
-
