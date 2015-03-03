@@ -9,7 +9,7 @@ require 'typhoeus'
 #Establish a few constants
 Twitch_url = "https://api.twitch.tv/kraken"
 Twitch_clientid = "dejgwfi5bg3m1js5y6yjedp985tc5rm"
-Twitch_headers = {"Accept"=>"application/vnd.twitch.v2+json", "Client-ID"=>"#{Twitch_clientid}"} 
+Twitch_headers = {"Accept"=>"application/vnd.twitch.v3+json", "Client-ID"=>"#{Twitch_clientid}"} 
 
 ########################################################
 # CHANGE THIS TO MODIFY WHO WE'RE GETTING THE INFO FOR #
@@ -19,13 +19,25 @@ Twitch_username = "vagabondazulien"
 def main()
 	#Get Streamers
 	streamers = getStreams(Twitch_username, 0, streams=[])
-
+          
+        livestreamers=[]
 	streamers.each { |channel|
 		tmp = getLive(channel)
-		if not tmp.nil?
-			puts "#{tmp["channel"]["display_name"]} streaming #{tmp["game"]}"
-		end
-	}
+		unless tmp.nil?
+			tmpHash = {"Name"=>"#{tmp["channel"]["display_name"]}",
+                                   "Status"=>"#{tmp["channel"]["status"]}",
+                                   "Game"=>"#{tmp["game"]}",
+                                   "Viewers"=>"#{tmp["viewers"]}",
+                                   "Live"=>"#{tmp["created_at"]}",
+                                   "Url"=>"#{tmp["channel"]["url"]}"}
+                        livestreamers.push(tmpHash)
+                end
+          }
+        
+        livestreamers.each { |live|
+             puts "[#{live["Name"]}] #{live["Status"]}"
+             printf "\t#{live["Game"]} | #{live["Viewers"]} | #{live["Live"]}\n"
+          }
 end
 
 def getStreams(user, offset, streams)
@@ -79,4 +91,4 @@ def getLive(stream)
 	end
 end
 
-main	#START ZE MACHINE!
+main
